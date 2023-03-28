@@ -1,0 +1,18 @@
+service: gallery-service
+frameworkVersion: '3'
+
+plugins:
+  - serverless-bundle
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: eu-west-2
+
+functions:
+  preSignUpUserPool:
+    memorySize: 128
+    handler: src/handlers/preSignUpUserPool.handler
+  imageCompress:
+    memorySize: 256
+    handler: src/handlers/imageCompress.handler
