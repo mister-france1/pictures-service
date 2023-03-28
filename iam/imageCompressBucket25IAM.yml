@@ -1,0 +1,6 @@
+imageCompressBucket25IAM:
+  Effect: Allow
+  Action:
+    - s3:PutObject
+  Resource:
+    - arn:aws:s3:::france31337-gallery-origin-resized25/*

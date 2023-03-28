@@ -1,0 +1,6 @@
+imageCompressBucketOriginIAM:
+  Effect: Allow
+  Action:
+    - s3:GetObject
+  Resource:
+    - arn:aws:s3:::france31337-gallery-origin/*

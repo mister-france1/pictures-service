@@ -3,6 +3,7 @@ frameworkVersion: '3'
 
 plugins:
   - serverless-bundle
+  - serverless-iam-roles-per-function
 
 provider:
   name: aws
@@ -13,6 +14,21 @@ functions:
   preSignUpUserPool:
     memorySize: 128
     handler: src/handlers/preSignUpUserPool.handler
+    events:
+      - cognitoUserPool:
+          pool: Gallery
+          trigger: PreSignUp
+          existing: true
+
   imageCompress:
     memorySize: 256
     handler: src/handlers/imageCompress.handler
+    events:
+      - s3:
+          bucket: france31337-gallery-origin
+          event: s3:ObjectCreated:*
+          existing: true
+    iamRoleStatements:
+      - ${file(iam/imageCompressBucketOriginIAM.yml):imageCompressBucketOriginIAM}
+      - ${file(iam/imageCompressBucket25IAM.yml):imageCompressBucket25IAM}
+      - ${file(iam/imageCompressBucket50IAM.yml):imageCompressBucket50IAM}
